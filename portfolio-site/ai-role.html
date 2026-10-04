@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The AI role in project delivery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --rule:#d9d9d6;
+    --accent:#14304f; --band:#f4f3ef;
+    --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --sans:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333; --accent:#8fb4d9; --band:#1e1e1e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333; --accent:#8fb4d9; --band:#1e1e1e;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+  .page{max-width:820px;margin:0 auto;padding:56px 40px}
+  .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+  .top a{color:var(--muted);text-decoration:none}
+  .top a:hover{color:var(--accent);text-decoration:underline}
+  .topline{height:2px;background:var(--accent);margin:12px 0 36px}
+  h1{font-family:var(--sans);font-weight:700;font-size:36px;line-height:1.12;letter-spacing:-.015em;margin:0 0 14px}
+  .lede{max-width:62ch;margin:0 0 10px}
+
+  .sec{margin-top:48px}
+  .sec > h2{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--accent);margin:0 0 18px;padding-bottom:10px;border-bottom:2px solid var(--accent)}
+  .sec > p{max-width:64ch;margin:0 0 12px}
+
+  .duty{display:grid;grid-template-columns:200px 1fr;gap:6px 28px;padding:18px 0;border-bottom:1px solid var(--rule)}
+  .duty:first-of-type{padding-top:0}
+  .duty h3{font-family:var(--sans);font-weight:700;font-size:16.5px;line-height:1.3;margin:0;padding-top:2px}
+  ul{margin:0;padding:0 0 0 20px;max-width:60ch}
+  li{margin:0 0 7px;padding-left:2px}
+  li::marker{color:var(--accent)}
+  li strong{font-family:var(--sans);font-size:15.5px}
+
+  .marks{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:4px 0 14px}
+  .mark{background:var(--band);border-radius:6px;padding:14px 14px 12px;font-family:var(--sans);font-size:13.5px;line-height:1.45}
+  .mark b{display:block;font-size:14.5px;color:var(--accent);margin-bottom:4px}
+
+  .sec .marks + p{max-width:64ch;margin:0 0 12px}
+  .see{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin:12px 0 0}
+  .see a{font-weight:600}
+
+  footer{margin-top:56px;padding-top:18px;border-top:2px solid var(--accent);font-family:var(--sans);font-size:14.5px;display:flex;justify-content:space-between;gap:8px 32px;flex-wrap:wrap}
+  footer p{margin:0}
+  footer .who{font-weight:600}
+  footer .links{display:flex;gap:8px 24px;flex-wrap:wrap}
+
+  @media (max-width:700px){
+    .page{padding:36px 20px 44px}
+    h1{font-size:28px}
+    .duty{grid-template-columns:1fr}
+    .marks{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="top"><a href="./">Ryan Prentice</a><a href="https://github.com/prentice-builds/ai-in-project-delivery">Where AI belongs in construction project delivery</a></div>
+  <div class="topline"></div>
+
+  <h1>The AI role in project delivery</h1>
+  <p class="lede">Every tool and plan in this portfolio depends on one thing. Someone accountable for working out where AI belongs in a delivery team and making it stick. Many firms do not have that role yet. This is what it looks like.</p>
+  <p class="lede">Titles vary. AI lead, AI program manager, innovation lead. The work is the same.</p>
+
+  <section class="sec">
+    <h2>Why the role exists</h2>
+    <p>Most firms already pay for AI tools, and many of those tools are underused. Too often a tool arrives as a license and a login, people try it on their own, and no one is clearly accountable for bringing it into the work.</p>
+    <p>The return does not come from buying AI. It comes from someone owning the work of making it useful.</p>
+  </section>
+
+  <section class="sec">
+    <h2>What kind of role it is</h2>
+    <p>It is a player and a coach. The person sets the direction, and also builds, tests, and demonstrates the tools themselves.</p>
+    <p>It belongs to someone who has been a project manager. The hard part is not the technology. It is knowing how the work is really done, which tasks matter, and where a tool would get in the way. Someone who has reviewed the change orders and sat in the meetings knows that, and the team trusts them for it.</p>
+    <p>It is not there to cut headcount. It is there to give project managers their hours back for the work only they can do.</p>
+  </section>
+
+  <section class="sec">
+    <h2>What the person does</h2>
+
+    <div class="duty">
+      <h3>Finds where AI belongs</h3>
+      <ul>
+        <li>Baselines where the hours go, and repeats it to see what moved.</li>
+        <li>Runs an open intake for ideas from any project manager.</li>
+        <li>Keeps a prioritized list of uses, judged on value, effort, and readiness.</li>
+        <li>Builds the roadmap with leaders and the client, and revises it as results come in.</li>
+        <li>Settles the process before automating it. A tool built on an inconsistent process spreads the inconsistency.</li>
+      </ul>
+    </div>
+
+    <div class="duty">
+      <h3>Builds and proves the tools</h3>
+      <ul>
+        <li>Writes the SOP for each task with the people who do it. That is the design brief.</li>
+        <li>Builds or configures tools hands-on.</li>
+        <li>Decides build or buy, evaluates vendors, and makes the case for new tools from pilot results.</li>
+        <li>Tests every tool against known answers before anyone relies on it.</li>
+        <li>Sets the bar before each pilot and holds the tool to it.</li>
+        <li>Keeps a library of what works, the tools, prompts, test cases, and instructions.</li>
+        <li>Prepares the handoff to production engineering, with the rules, test results, and known limits.</li>
+      </ul>
+    </div>
+
+    <div class="duty">
+      <h3>Brings people along</h3>
+      <ul>
+        <li>Runs a regular update on what is being built and what changed, and listens for what is not working.</li>
+        <li>Trains by role and demonstrates on real work.</li>
+        <li>Starts with volunteers and builds a group of champions from them.</li>
+        <li>Builds the team's own skill, so the capability does not sit with one person.</li>
+        <li>Sets a pace the team can absorb, one or two changes at a time.</li>
+      </ul>
+    </div>
+
+    <div class="duty">
+      <h3>Keeps it safe</h3>
+      <ul>
+        <li>Knows which client agreements allow AI tools, and keeps the work inside those lines.</li>
+        <li>Works with security and legal on tool approval, data handling, and access.</li>
+        <li>Makes sure every tool says what it could not check, and that a person makes every decision.</li>
+      </ul>
+    </div>
+
+    <div class="duty">
+      <h3>Measures and reports</h3>
+      <ul>
+        <li>Tracks use, quality, and time returned for every tool, and retires what is not used.</li>
+        <li>Keeps spend tied to a return that can be measured.</li>
+        <li>Reports to leaders and the client on gains, lessons, risks, and decisions needed.</li>
+        <li>Stays current on what the tools can do, and is honest about what they cannot.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>What they need to be good at</h2>
+    <ul>
+      <li><strong>Project management.</strong> They have done the job, and know how a change order, a pay application, or a schedule update really gets reviewed.</li>
+      <li><strong>Building with AI.</strong> Tools they made themselves that other people used.</li>
+      <li><strong>Rules and tests.</strong> Turning how an expert checks a document into something a tool can follow and a test can verify.</li>
+      <li><strong>Technical fluency.</strong> Enough to prototype, inspect data, and hand off cleanly to engineers.</li>
+      <li><strong>Process improvement.</strong> A history of fixing how work gets done, in ways others adopted.</li>
+      <li><strong>Leading without authority.</strong> Trusted by project managers, technical teams, executives, and clients.</li>
+      <li><strong>Plain communication.</strong> Explaining what a tool does and where it stops.</li>
+      <li><strong>Adoption over output.</strong> Measured by what the team uses, not by what they shipped.</li>
+      <li><strong>Comfort with ambiguity.</strong> The role is new, and they build its structure as they go.</li>
+      <li><strong>Judgment.</strong> About risk, confidentiality, and when a tool is not ready.</li>
+    </ul>
+  </section>
+
+  <section class="sec">
+    <h2>Where it sits and how big it is</h2>
+    <p>Inside delivery, reporting to whoever leads the program or account. It works alongside project controls, and with technology, security, legal, and training. It takes nothing away from those functions. They keep their work, and this role brings them in early.</p>
+    <p>The size depends on the team and on how much there is to build. A small team needs one full person. A larger one needs several, and a firm with thousands needs a department. The right ratio is something a firm learns by doing the work.</p>
+    <p class="see">Size it for your own team with <a href="capacity-calculator.html">the capacity calculator</a></p>
+  </section>
+
+  <section class="sec">
+    <h2>How a firm knows it is working</h2>
+    <div class="marks">
+      <div class="mark"><b>By day 90</b>A baseline, a roadmap leaders have signed off on, and one tool tested.</div>
+      <div class="mark"><b>By month 6</b>The first tool in daily use across the team, and the first review built and tested.</div>
+      <div class="mark"><b>By month 12</b>Three to five tools proven, and a second baseline showing where the hours went.</div>
+      <div class="mark"><b>By month 18</b>Tools in use beyond the first team, the first agents running, and one risk caught that no single review would have seen.</div>
+    </div>
+    <p>Between those marks, the measures are the same every month. Whether people use the tools, the time that comes back, how often the tools are right, how consistent the work is from one project to the next, and how the team feels about it.</p>
+    <p class="see">The stages behind those marks are in <a href="ai-rollout-plan.html">the AI rollout plan</a></p>
+  </section>
+
+  <footer>
+    <p class="who">Ryan Prentice, Senior Project Manager</p>
+    <p class="links">
+      <a href="mailto:rprentice99@gmail.com">rprentice99@gmail.com</a>
+      <a href="https://www.linkedin.com/in/ryan-prentice-45666b57/">LinkedIn</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>

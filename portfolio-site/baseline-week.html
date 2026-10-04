@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baseline your week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --rule:#d9d9d6;
+    --accent:#14304f; --band:#f4f3ef; --fill:#14304f; --on-fill:#ffffff; --on-fill-muted:#c9d5e3; --mid:#7f97b3;
+    --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --sans:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333;
+      --accent:#8fb4d9; --band:#1e1e1e; --fill:#1b3655; --on-fill:#f1f4f8; --on-fill-muted:#b7c6d8; --mid:#5d7896;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333;
+    --accent:#8fb4d9; --band:#1e1e1e; --fill:#1b3655; --on-fill:#f1f4f8; --on-fill-muted:#b7c6d8; --mid:#5d7896;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+  button{font-family:var(--sans)}
+
+  .page{max-width:980px;margin:0 auto;padding:56px 40px}
+  .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+  .top a{color:var(--muted);text-decoration:none}
+  .top a:hover{color:var(--accent);text-decoration:underline}
+  .topline{height:2px;background:var(--accent);margin:12px 0 36px}
+  h1{font-family:var(--sans);font-weight:700;font-size:36px;line-height:1.12;letter-spacing:-.015em;margin:0 0 14px}
+  .lede{max-width:62ch;margin:0 0 10px}
+  h2{font-family:var(--sans);font-weight:700;font-size:15px;margin:0 0 2px}
+
+  .work{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:start;margin-top:36px}
+
+  .weeks{display:inline-flex;border:1.5px solid var(--accent);border-radius:8px;overflow:hidden;margin-bottom:6px}
+  .wk{font-size:14px;font-weight:600;padding:8px 16px;border:0;background:transparent;color:var(--accent);cursor:pointer}
+  .wk[aria-pressed="true"]{background:var(--fill);color:var(--on-fill)}
+  .wkhint{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:0 0 14px}
+  .days{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+  .day{font-size:14px;font-weight:600;border-radius:6px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--rule);background:transparent;color:var(--ink);font-variant-numeric:tabular-nums}
+  .day[aria-pressed="true"]{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+  .day small{font-weight:500;opacity:.75;margin-left:6px}
+  .dayline{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--sans);font-size:13px;color:var(--muted);margin:10px 0 4px;min-height:28px}
+  .link{font-size:13px;background:none;border:0;padding:0;color:var(--accent);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+
+  .group{margin-top:20px}
+  .ghint{font-family:var(--sans);font-size:12.5px;color:var(--muted);margin:0 0 6px}
+  .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--rule);font-family:var(--sans);font-size:14.5px}
+  .step{display:flex;align-items:center;gap:4px}
+  .step button{width:32px;height:32px;border-radius:6px;border:1px solid var(--rule);background:var(--band);color:var(--ink);font-size:18px;line-height:1;cursor:pointer;font-weight:600}
+  .step button:disabled{opacity:.35;cursor:default}
+  .step output{width:52px;text-align:center;font-variant-numeric:tabular-nums;font-weight:600}
+  .step output.zero{color:var(--muted);font-weight:400}
+
+  .results{position:sticky;top:calc(16px + env(safe-area-inset-top,0px))}
+  .panel{background:var(--fill);color:var(--on-fill);border-radius:6px;padding:24px}
+  .big{font-family:var(--sans);font-weight:700;font-size:54px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .plabel{font-family:var(--sans);font-size:13.5px;color:var(--on-fill-muted);margin:8px 0 0;line-height:1.45}
+  .plabel strong{color:var(--on-fill)}
+  .split{margin-top:18px;border-top:1px solid rgba(255,255,255,.18);padding-top:16px;font-family:var(--sans);font-size:13.5px}
+  .split div{display:flex;justify-content:space-between;gap:12px;padding:3px 0}
+  .split b{font-variant-numeric:tabular-nums}
+  .plabel.ai{margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:14px}
+  .emptymsg{font-family:var(--sans);font-size:15px;line-height:1.5;margin:0}
+
+  .compare{margin-top:18px;font-family:var(--sans);font-size:13px}
+  .compare h2{margin-bottom:10px}
+  .bar{display:grid;grid-template-columns:128px 1fr 40px;gap:10px;align-items:center;margin-bottom:8px}
+  .bar .track{height:14px;background:var(--band);border-radius:3px;overflow:hidden;border:1px solid var(--rule)}
+  .bar .fillb{height:100%;background:var(--mid)}
+  .bar.you .fillb{background:var(--accent)}
+  .bar.you{font-weight:700}
+  .bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+
+  .next{margin-top:18px;font-family:var(--sans);font-size:14px;line-height:1.5;border-left:4px solid var(--accent);background:var(--band);padding:12px 14px}
+  .next p{margin:0 0 8px}
+  .next p:last-child{margin:0}
+
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+  .btn{font-size:14px;font-weight:600;border-radius:6px;padding:9px 14px;cursor:pointer;border:1.5px solid var(--accent);background:transparent;color:var(--accent)}
+  .btn.solid{background:var(--fill);color:var(--on-fill);border-color:var(--fill)}
+  textarea{width:100%;margin-top:12px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;line-height:1.45;height:200px;border:1px solid var(--rule);border-radius:6px;padding:10px;background:var(--band);color:var(--ink)}
+  .msg{font-family:var(--sans);font-size:13px;color:var(--muted);margin:8px 0 0;min-height:1.2em}
+
+  .team{margin-top:56px;border-top:1px solid var(--rule);padding-top:22px}
+  .team h2{font-size:20px;margin-bottom:8px}
+  .team p{max-width:66ch;margin:0 0 12px}
+
+  footer{margin-top:48px;padding-top:18px;border-top:2px solid var(--accent);font-family:var(--sans);font-size:14.5px;display:flex;justify-content:space-between;gap:8px 32px;flex-wrap:wrap}
+  footer p{margin:0}
+  footer .who{font-weight:600}
+  footer .links{display:flex;gap:8px 24px;flex-wrap:wrap}
+
+  @media (max-width:800px){
+    .page{padding:36px 20px 44px}
+    h1{font-size:28px}
+    .work{grid-template-columns:1fr}
+    .results{position:static}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="top"><a href="./">Ryan Prentice</a><a href="https://github.com/prentice-builds/ai-in-project-delivery">Where AI belongs in construction project delivery</a></div>
+  <div class="topline"></div>
+
+  <h1>Baseline your week</h1>
+  <p class="lede">Before any team decides where AI belongs, it needs to know where the hours go. Log two honest weeks, a typical one and one when monthly reports are due, and this page tells you how much of each is administrative load and how much of that AI could take.</p>
+  <p class="lede">It takes about two minutes at the end of each day. Half hours are close enough.</p>
+
+  <div class="work">
+    <section aria-label="Log your hours">
+      <div class="weeks" role="group" aria-label="Which week you are logging">
+        <button type="button" class="wk" data-w="0">Typical week</button>
+        <button type="button" class="wk" data-w="1">Reporting week</button>
+      </div>
+      <p class="wkhint">A week when monthly reports are due looks different. Log one of each.</p>
+      <div class="days" id="days" role="group" aria-label="Day of the week"></div>
+      <div class="dayline"><span id="dayTotal"></span><button class="link" id="copyPrev" hidden>Copy the previous day</button></div>
+      <div id="groups"></div>
+    </section>
+
+    <section class="results" aria-label="Your week">
+      <div class="panel" aria-live="polite">
+        <p class="emptymsg" id="emptyMsg">Add your first hours and your administrative share shows up here.</p>
+        <div id="filled" hidden>
+          <div class="big" id="share"></div>
+          <p class="plabel">of your <strong id="wkName"></strong> went to administrative load, across <strong id="hrs"></strong> hours on <strong id="nd"></strong>.</p>
+          <div class="split">
+            <div><span>Repeatable work</span><b id="s1"></b></div>
+            <div><span>Review work</span><b id="s2"></b></div>
+            <div><span>Meetings</span><b id="s3"></b></div>
+            <div><span>Work only you can do</span><b id="s4"></b></div>
+          </div>
+          <p class="plabel ai"><strong id="ai"></strong> of your week is work AI can take or help with. Meetings are the <strong id="mt"></strong> that stays yours for now.</p>
+        </div>
+      </div>
+
+      <div class="compare" id="compare" hidden>
+        <h2>Against the report</h2>
+        <div class="bar you" id="rowT"><span>Your typical week</span><span class="track"><span class="fillb" id="bT" style="display:block;width:0"></span></span><span id="bTN"></span></div>
+        <div class="bar you" id="rowR"><span>Your reporting week</span><span class="track"><span class="fillb" id="bR" style="display:block;width:0"></span></span><span id="bRN"></span></div>
+        <div class="bar"><span>My estimate today</span><span class="track"><span class="fillb" style="display:block;width:75%"></span></span><span>75%</span></div>
+        <div class="bar"><span>Near-term target</span><span class="track"><span class="fillb" style="display:block;width:50%"></span></span><span>50%</span></div>
+        <div class="bar"><span>Longer term</span><span class="track"><span class="fillb" style="display:block;width:25%"></span></span><span>25%</span></div>
+      </div>
+
+      <div class="next" id="next" hidden>
+        <p id="biggest"></p>
+        <p><a href="capacity-calculator.html">Take your number to the calculator</a> to see what it is worth across a team.</p>
+      </div>
+
+      <div class="actions">
+        <button class="btn solid" id="dl" hidden>Download my weeks</button>
+        <button class="btn" id="showTxt">Show my weeks as text</button>
+        <button class="btn" id="reset">Clear this week</button>
+      </div>
+      <p class="msg" id="msg" aria-live="polite"></p>
+      <textarea id="txt" hidden readonly aria-label="Your week as text, ready to copy"></textarea>
+    </section>
+  </div>
+
+  <section class="team">
+    <h2>Running this across a team</h2>
+    <p>Have each project manager log a typical week and a week when monthly reports are due, then download the file or copy the text and send it to whoever is collecting. Paste the files into one spreadsheet and you have a baseline for the team.</p>
+    <p>Then run it again a few months in. Many meetings exist to move status from one person to another. When reports and logs keep themselves current, some of those meetings should shrink, and a second baseline is how you would see it.</p>
+    <p>Nothing you enter here is sent anywhere. The hours stay in your own browser until you choose to share them.</p>
+    <p>The categories come from the report, <a href="https://github.com/prentice-builds/ai-in-project-delivery">Where AI belongs in construction project delivery</a>. Repeatable work is what AI can do and you review. Review work is what AI can draft and you decide. Meetings are administrative load that stays yours for now, though AI can take the prep and the follow-up. The rest is the work only you can do.</p>
+  </section>
+
+  <footer>
+    <p class="who">Ryan Prentice, Senior Project Manager</p>
+    <p class="links">
+      <a href="mailto:rprentice99@gmail.com">rprentice99@gmail.com</a>
+      <a href="https://www.linkedin.com/in/ryan-prentice-45666b57/">LinkedIn</a>
+    </p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var DAYS=['Mon','Tue','Wed','Thu','Fri'];
+  var DAYFULL=['Monday','Tuesday','Wednesday','Thursday','Friday'];
+  var WEEKS=['Typical week','Reporting week'];
+  var GROUPS=[
+    {name:'Repeatable work',hint:'AI can do it, you review.',cats:['Status reports and updates','Meeting prep, notes, and follow-up','Updating logs and trackers','Filing and finding documents','Routine email and messages','Timesheets, expenses, and internal admin']},
+    {name:'Review work',hint:'AI can draft it, you decide.',cats:['Budget, cost reports, and forecasts','Change orders and pay applications','Schedule reviews and updates','Submittals, drawings, and RFIs','Contracts, proposals, and bids']},
+    {name:'Meetings',hint:'You have to be in the room. AI helps with the work around them.',cats:['Client and owner meetings','Project team and contractor meetings','Internal meetings']},
+    {name:'Work only you can do',hint:'Judgment stays with you.',cats:['Site walks and field time','Working an issue one on one, by phone or in person','Heads-down problem solving and planning']}
+  ];
+  var CATS=[]; GROUPS.forEach(function(g,gi){g.cats.forEach(function(c){CATS.push({name:c,g:gi});});});
+  var KEY='baseline-week-v3', OLDKEY='baseline-week-v2';
+  function blank(){return DAYS.map(function(){return CATS.map(function(){return 0;});});}
+  function okWeek(h){return h&&h.length===DAYS.length&&h[0]&&h[0].length===CATS.length;}
+  var state={wk:0,day:0,h:[blank(),blank()]};
+
+  function load(){
+    try{
+      var raw=window.localStorage.getItem(KEY);
+      if(raw){
+        var p=JSON.parse(raw);
+        if(p&&p.h&&p.h.length===2&&okWeek(p.h[0])&&okWeek(p.h[1])){
+          state.h=p.h; state.wk=p.wk===1?1:0; state.day=Math.min(DAYS.length-1,Math.max(0,p.day|0));
+        }
+        return;
+      }
+      var old=window.localStorage.getItem(OLDKEY);
+      if(old){var q=JSON.parse(old); if(q&&okWeek(q.h)){state.h[0]=q.h;}}
+    }catch(e){}
+  }
+  function save(){try{window.localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function fmtH(n){return (Math.round(n*2)/2).toString();}
+  function cur(){return state.h[state.wk];}
+  function daySum(w,d){return state.h[w][d].reduce(function(a,b){return a+b;},0);}
+
+  /* build once */
+  var daysEl=$('days');
+  DAYS.forEach(function(d,i){
+    var b=document.createElement('button');b.type='button';b.className='day';b.dataset.d=i;
+    b.addEventListener('click',function(){state.day=i;save();render();});
+    daysEl.appendChild(b);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.wk'),function(b){
+    b.addEventListener('click',function(){state.wk=+b.dataset.w;state.day=0;save();render();});
+  });
+  var groupsEl=$('groups'), idx=0;
+  GROUPS.forEach(function(g){
+    var w=document.createElement('div');w.className='group';
+    w.innerHTML='<h2>'+g.name+'</h2><p class="ghint">'+g.hint+'</p>';
+    g.cats.forEach(function(c){
+      var i=idx++;
+      var r=document.createElement('div');r.className='row';
+      r.innerHTML='<span>'+c+'</span><span class="step">'+
+        '<button type="button" data-i="'+i+'" data-s="-0.5" aria-label="Half an hour less on '+c+'">&minus;</button>'+
+        '<output id="o'+i+'"></output>'+
+        '<button type="button" data-i="'+i+'" data-s="0.5" aria-label="Half an hour more on '+c+'">+</button></span>';
+      w.appendChild(r);
+    });
+    groupsEl.appendChild(w);
+  });
+  groupsEl.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-i]'); if(!b) return;
+    var i=+b.dataset.i, v=cur()[state.day][i]+(+b.dataset.s);
+    cur()[state.day][i]=Math.min(24,Math.max(0,v));
+    save();render();
+  });
+  $('copyPrev').addEventListener('click',function(){
+    if(state.day>0){cur()[state.day]=cur()[state.day-1].slice();save();render();}
+  });
+
+  function totals(w){
+    var g=[0,0,0,0], per=CATS.map(function(){return 0;}), nd=0;
+    state.h[w].forEach(function(day){
+      var s=0; day.forEach(function(v,i){g[CATS[i].g]+=v;per[i]+=v;s+=v;}); if(s>0) nd++;
+    });
+    return {g:g,per:per,total:g[0]+g[1]+g[2]+g[3],nd:nd};
+  }
+  function shares(t){
+    var p3=Math.round(t.g[3]/t.total*100), p2=Math.round(t.g[2]/t.total*100), p0=Math.round(t.g[0]/t.total*100);
+    var p1=Math.max(0,100-p3-p2-p0);
+    return {p:[p0,p1,p2,p3],admin:p0+p1+p2,ai:p0+p1};
+  }
+
+  function render(){
+    var w=state.wk;
+    Array.prototype.forEach.call(document.querySelectorAll('.wk'),function(b){
+      var on=+b.dataset.w===w; b.setAttribute('aria-pressed',on?'true':'false');
+    });
+    Array.prototype.forEach.call(daysEl.children,function(b,i){
+      b.setAttribute('aria-pressed',i===state.day?'true':'false');
+      var s=daySum(w,i);
+      b.innerHTML=DAYS[i]+(s>0?'<small>'+fmtH(s)+'h</small>':'');
+      b.setAttribute('aria-label',DAYFULL[i]+(s>0?', '+fmtH(s)+' hours logged':', nothing logged'));
+    });
+    var ds=daySum(w,state.day);
+    $('dayTotal').textContent=DAYFULL[state.day]+(ds>0?', '+fmtH(ds)+' hours logged':', nothing logged yet');
+    $('copyPrev').hidden=!(state.day>0&&ds===0&&daySum(w,state.day-1)>0);
+    CATS.forEach(function(c,i){
+      var v=cur()[state.day][i], o=$('o'+i);
+      o.textContent=v>0?fmtH(v)+' h':'0';
+      o.className=v>0?'':'zero';
+      o.previousElementSibling.disabled=v<=0;
+    });
+
+    var t=totals(w), has=t.total>0;
+    var tT=totals(0), tR=totals(1), anyData=tT.total>0||tR.total>0;
+    $('emptyMsg').hidden=has; $('filled').hidden=!has; $('next').hidden=!has; $('compare').hidden=!anyData;
+    $('emptyMsg').textContent=w===0?'Add your first hours and your administrative share shows up here.':'Nothing logged for the reporting week yet. Add hours and its share shows up here.';
+    if(has){
+      var sh=shares(t);
+      $('share').textContent=sh.admin+'%';
+      $('wkName').textContent=WEEKS[w].toLowerCase();
+      $('hrs').textContent=fmtH(t.total);
+      $('nd').textContent=t.nd+(t.nd===1?' day':' days');
+      $('s1').textContent=sh.p[0]+'%';
+      $('s2').textContent=sh.p[1]+'%';
+      $('s3').textContent=sh.p[2]+'%';
+      $('s4').textContent=sh.p[3]+'%';
+      $('ai').textContent=sh.ai+'%';
+      $('mt').textContent=sh.p[2]+'%';
+      var best=-1,bi=-1;
+      t.per.forEach(function(v,i){if(CATS[i].g===0&&v>best){best=v;bi=i;}});
+      $('biggest').textContent=best>0
+        ?'Your largest block of repeatable work this week is '+CATS[bi].name.toLowerCase()+', at '+fmtH(best)+' hours. That is the first place to look.'
+        :'No repeatable work logged yet. That is where the first gains usually are.';
+    }
+    $('rowT').hidden=!(tT.total>0); $('rowR').hidden=!(tR.total>0);
+    if(tT.total>0){var a=shares(tT).admin; $('bT').style.width=a+'%'; $('bTN').textContent=a+'%';}
+    if(tR.total>0){var r=shares(tR).admin; $('bR').style.width=r+'%'; $('bRN').textContent=r+'%';}
+    $('reset').textContent=armed?'Click again to clear':'Clear this week';
+    if(!$('txt').hidden) $('txt').value=asCsv();
+  }
+
+  function asCsv(){
+    var lines=[];
+    [0,1].forEach(function(w){
+      var t=totals(w);
+      if(w===1) lines.push('');
+      lines.push('"'+WEEKS[w]+'"');
+      lines.push(['Category','Group'].concat(DAYS).concat(['Total']).join(','));
+      CATS.forEach(function(c,i){
+        lines.push(['"'+c.name+'"','"'+GROUPS[c.g].name+'"'].concat(state.h[w].map(function(d){return d[i];})).concat([t.per[i]]).join(','));
+      });
+      lines.push(['"Total hours"','""'].concat(state.h[w].map(function(d,i){return daySum(w,i);})).concat([t.total]).join(','));
+      if(t.total>0){
+        var sh=shares(t);
+        lines.push('"Administrative load",'+sh.admin+'%');
+        lines.push('"AI can take or help with",'+sh.ai+'%');
+        lines.push('"Repeatable work",'+sh.p[0]+'%');
+        lines.push('"Review work",'+sh.p[1]+'%');
+        lines.push('"Meetings",'+sh.p[2]+'%');
+        lines.push('"Work only you can do",'+sh.p[3]+'%');
+      }else{
+        lines.push('"Nothing logged"');
+      }
+    });
+    return lines.join('\n');
+  }
+  function anyHours(){return totals(0).total>0||totals(1).total>0;}
+
+  $('showTxt').addEventListener('click',function(){
+    var ta=$('txt'); ta.hidden=!ta.hidden;
+    this.textContent=ta.hidden?'Show my weeks as text':'Hide the text';
+    if(!ta.hidden){ta.value=asCsv();ta.focus();ta.select();$('msg').textContent='Select all and copy, then paste into a spreadsheet or an email.';}
+    else $('msg').textContent='';
+  });
+
+  var armed=false, armTimer=null;
+  $('reset').addEventListener('click',function(){
+    var self=this;
+    if(!armed){armed=true;self.textContent='Click again to clear';armTimer=setTimeout(function(){armed=false;self.textContent='Clear this week';},4000);return;}
+    clearTimeout(armTimer);armed=false;
+    state.h[state.wk]=blank(); state.day=0;
+    save();render();$('msg').textContent=WEEKS[state.wk]+' cleared.';
+  });
+
+  /* optional file download, only when the viewer supports it */
+  if(window.claude&&typeof window.claude.use==='function'){
+    window.claude.use('downloads').then(function(dl){
+      if(!dl) return;
+      var b=$('dl'); b.hidden=false;
+      b.addEventListener('click',function(){
+        if(!anyHours()){$('msg').textContent='Log some hours first.';return;}
+        dl.save({filename:'my-weeks-baseline.csv',data:asCsv()}).then(function(){
+          $('msg').textContent='Saved.';
+        }).catch(function(err){
+          var c=err&&err.code;
+          if(c==='declined') $('msg').textContent='Download cancelled.';
+          else if(c==='rate_limited') $('msg').textContent='A download prompt is already open. Try again in a moment.';
+          else {$('msg').textContent='Download is not available here. Use the text version.';b.hidden=true;}
+        });
+      });
+    }).catch(function(){});
+  } else {
+    /* on an ordinary web page, save the file directly */
+    var b0=$('dl'); b0.hidden=false;
+    b0.addEventListener('click',function(){
+      if(!anyHours()){$('msg').textContent='Log some hours first.';return;}
+      var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([asCsv()],{type:'text/csv'})); a.download='my-weeks-baseline.csv';
+      document.body.appendChild(a); a.click(); a.remove(); $('msg').textContent='Saved.';
+    });
+  }
+
+  load(); render();
+})();
+</script>
+</body>
+</html>
