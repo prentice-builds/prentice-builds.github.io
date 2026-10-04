@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fair questions about AI in project delivery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b; --rule:#d9d9d6;
+    --accent:#14304f; --band:#f4f3ef;
+    --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --sans:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333; --accent:#8fb4d9; --band:#1e1e1e;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121212; --ink:#ececec; --muted:#a3a3a3; --rule:#333333; --accent:#8fb4d9; --band:#1e1e1e;
+  }
+  html{scroll-padding-top:env(safe-area-inset-top,0px)}
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+  .page{max-width:780px;margin:0 auto;padding:56px 40px}
+  .top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--sans);font-size:12.5px;color:var(--muted)}
+  .top a{color:var(--muted);text-decoration:none}
+  .top a:hover{color:var(--accent);text-decoration:underline}
+  .topline{height:2px;background:var(--accent);margin:12px 0 36px}
+  h1{font-family:var(--sans);font-weight:700;font-size:36px;line-height:1.12;letter-spacing:-.015em;margin:0 0 14px}
+  .lede{max-width:62ch;margin:0 0 10px}
+
+  .group{margin-top:48px}
+  .group > h2{font-family:var(--sans);font-weight:700;font-size:14px;color:var(--accent);margin:0;padding-bottom:10px;border-bottom:2px solid var(--accent)}
+  .q{padding:24px 0;border-bottom:1px solid var(--rule)}
+  .q h3{font-family:var(--sans);font-weight:700;font-size:20px;line-height:1.3;margin:0 0 10px;letter-spacing:-.005em}
+  .q p{margin:0;max-width:64ch}
+  .q p + p{margin-top:12px}
+  .q .see{font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:12px}
+  .q .see a{font-weight:600}
+
+  footer{margin-top:56px;padding-top:18px;border-top:2px solid var(--accent);font-family:var(--sans);font-size:14.5px;display:flex;justify-content:space-between;gap:8px 32px;flex-wrap:wrap}
+  footer p{margin:0}
+  footer .who{font-weight:600}
+  footer .links{display:flex;gap:8px 24px;flex-wrap:wrap}
+
+  @media (max-width:640px){
+    .page{padding:36px 20px 44px}
+    h1{font-size:28px}
+    .q h3{font-size:18px}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <div class="top"><a href="./">Ryan Prentice</a><a href="https://github.com/prentice-builds/ai-in-project-delivery">Where AI belongs in construction project delivery</a></div>
+  <div class="topline"></div>
+
+  <h1>Fair questions about AI in project delivery</h1>
+  <p class="lede">These are the objections I would raise myself if I were deciding whether to put AI into a project team. Each answer is short, and each one points to where the report or a working tool backs it up.</p>
+
+  <section class="group">
+    <h2>Trust</h2>
+
+    <div class="q">
+      <h3>How do we protect our clients' data?</h3>
+      <p>This is the question to answer first, and it has a real answer. Large companies with far more sensitive data than a project file already use AI on it. They do it through enterprise agreements, not consumer apps.</p>
+      <p>Four protections make that possible, and each one is something a firm can ask for in writing. The vendor does not train its models on your data. The work runs inside a security boundary you already trust, so documents are not sent off to an outside service. The tool can only read what the person using it is already allowed to open. And the firm controls what is kept and for how long, with a record of who did what.</p>
+      <p>The risk is not the enterprise tool. It is the free one. When people have no approved option, they paste project documents into a personal account where none of those protections apply. Giving a team a sanctioned tool is how a firm closes that gap.</p>
+      <p>One part no vendor can settle for you. Your agreement with each client decides what you may do with their information. Some clients will permit it, some will want to be asked, and some will rule it out for certain work, in defense or healthcare for example. Read the contract, ask where it is silent, and keep those projects out until the answer is yes.</p>
+      <p>Everything I built was tested on documents I constructed, for exactly this reason.</p>
+      <p class="see">What a production version needs is in <a href="https://github.com/prentice-builds/ai-in-project-delivery">Appendix C of the report</a></p>
+    </div>
+
+    <div class="q">
+      <h3>It makes things up. Why would I trust a review it wrote?</h3>
+      <p>You should not trust a review that only a model wrote. In the prototypes the model reads the document and plain code does the arithmetic, so every markup, subtotal, and retainage figure is recalculated and not estimated. The review shows the inputs it worked from and says what it could not check. A tool that admits a gap earns more trust than one that guesses.</p>
+      <p class="see">See it in <a href="https://github.com/prentice-builds/construction-review-prototypes">the review prototypes</a></p>
+    </div>
+
+    <div class="q">
+      <h3>Who is accountable when it misses something?</h3>
+      <p>The same person who is accountable today. Nothing is approved by a tool. It does a first review and the project manager decides, with a clear line between what was checked and what stays a judgment call. How often it misses is something a team measures before relying on it, and the bar should be set by what a miss would cost.</p>
+      <p class="see">See it in <a href="pilot-scorecard.html">the pilot scorecard</a></p>
+    </div>
+  </section>
+
+  <section class="group">
+    <h2>People</h2>
+
+    <div class="q">
+      <h3>My project managers will not use it.</h3>
+      <p>The project managers I know are not resistant. They have not been given the time or the direction to work out where it fits. Tools get used when they are built with the people doing the work and the output matches how the work is done. A review in document order with a note ready to send gets used. A list of anomalies does not.</p>
+      <p class="see">Use is the first thing measured in <a href="pilot-scorecard.html">the pilot scorecard</a></p>
+    </div>
+
+    <div class="q">
+      <h3>Is this how project managers get replaced?</h3>
+      <p>No. It changes where their hours go. Managing risk, making decisions, and keeping the relationships that move a project stay with the person. What comes back is capacity, which lets a team take on more work without hiring in step with it and gives good people more of the work they were hired for.</p>
+      <p class="see">See it in <a href="capacity-calculator.html">the capacity calculator</a></p>
+    </div>
+
+    <div class="q">
+      <h3>AI cannot sit in my meetings, and that is where my week goes.</h3>
+      <p>It does not have to. It can take the work around the meeting, the agenda, the notes, and the action items. My view is that many meetings exist to pass status from one person to another, and when reports and logs stay current some of them lose their purpose. That is a hypothesis until a team measures it, and the weekly baseline is how.</p>
+      <p class="see">Measure it with <a href="baseline-week.html">the weekly baseline</a></p>
+    </div>
+  </section>
+
+  <section class="group">
+    <h2>Money</h2>
+
+    <div class="q">
+      <h3>What does it take to start?</h3>
+      <p>Less than a large program, and more than the licenses a firm already holds. It takes someone accountable for it, a baseline of where the hours go, and a few small pilots measured against it. The AI assistant most firms already have, the kind built into email and documents, handles drafting and summaries well. Reviewing a change order against a contract is a different job. It takes a tool made for that task, bought or built, so some investment in tools is part of it. Keep that spend modest and make each step prove its value before the next one gets funded.</p>
+      <p class="see">See the stages in <a href="ai-rollout-plan.html">the AI rollout plan</a> and run the numbers in <a href="capacity-calculator.html">the capacity calculator</a></p>
+    </div>
+
+    <div class="q">
+      <h3>We already pay for AI licenses. Why is that not enough?</h3>
+      <p>Because access is not adoption. Too often a tool arrives as a license and a login, with little direction on what it is for and no one clearly accountable for bringing it into the workflows. The tools are rarely the constraint. Someone responsible for making them useful is.</p>
+      <p class="see">See what that person does in <a href="ai-role.html">the AI role</a></p>
+    </div>
+
+    <div class="q">
+      <h3>The platforms are shipping agents. Why do we need anyone?</h3>
+      <p>Because a shipped agent is still a license and a login. At least one major construction platform now offers agents for RFIs, submittals, contract review, and change analysis, and is adding a way for firms to teach those agents their own processes.</p>
+      <p>Someone has to write those processes down. Someone has to test what the agent produces against known answers, decide where a person stays in the loop, and bring the team along. The tools arriving does not remove that work. It makes it urgent, because the firms that do it will get the value and the rest will pay for agents nobody trusts.</p>
+      <p>Many of these agents were also built first for contractors. An owner's team reads the same documents from the other side of the table, and the rules it needs are its own.</p>
+      <p class="see">The work is laid out in <a href="ai-rollout-plan.html">the AI rollout plan</a> and <a href="ai-role.html">the AI role</a></p>
+    </div>
+
+    <div class="q">
+      <h3>Should we build or buy?</h3>
+      <p>Both, in order. Use what you already pay for on the repeatable work first. Buy where a vendor already does the job well and connects to the systems you run. Build small where the rules are your own, such as your contract terms, your markup limits, and the order your reviewers work in, because in my experience the rules matter more than the model. Keep the spend modest and tied to a return you can measure.</p>
+      <p class="see">Forty-one places to start are in <a href="capacity-calculator.html">the opportunity landscape</a></p>
+    </div>
+  </section>
+
+  <section class="group">
+    <h2>Proof</h2>
+
+    <div class="q">
+      <h3>How would we know it is working?</h3>
+      <p>By setting the bar before the pilot and measuring against it after. Did people use it, was it right, did it save time once checking is counted, and do they want to keep it. Being right comes before being fast, because a tool can save time and still miss something that matters.</p>
+      <p class="see">See it in <a href="pilot-scorecard.html">the pilot scorecard</a></p>
+    </div>
+
+    <div class="q">
+      <h3>Our documents are a mess.</h3>
+      <p>Most are, and real documents will be harder than the ones I tested on. That is a reason to begin with a recurring task where the evidence is easy to get to and the review is manageable. It is also a reason to start now, since clean records and standard processes take time and everything later depends on them.</p>
+      <p class="see">The start here view is in <a href="capacity-calculator.html">the opportunity landscape</a></p>
+    </div>
+  </section>
+
+  <section class="group">
+    <h2>Timing</h2>
+
+    <div class="q">
+      <h3>Why not wait until the tools mature?</h3>
+      <p>The tools will keep improving whether a firm waits or not. What does not arrive on its own is the foundation, meaning clean records, standard processes, and reviews that people trust. Firms that build those now will be ready when the larger capabilities arrive. Firms that wait will be starting from the beginning.</p>
+      <p class="see">See where this goes in <a href="https://github.com/prentice-builds/ai-in-project-delivery">the report</a></p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="who">Ryan Prentice, Senior Project Manager</p>
+    <p class="links">
+      <a href="mailto:rprentice99@gmail.com">rprentice99@gmail.com</a>
+      <a href="https://www.linkedin.com/in/ryan-prentice-45666b57/">LinkedIn</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
