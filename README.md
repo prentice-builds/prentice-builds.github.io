@@ -15,6 +15,4 @@ Owner's rep who builds with AI. This repo holds my portfolio site.
 | [Fair questions](https://prentice-builds.github.io/fair-questions.html) | Thirteen questions an executive would ask |
 | [Cypher](https://prentice-builds.github.io/cypher.html) | My personal AI chief of staff |
 
-Everything here was built on my own time.
-
 rprentice99@gmail.com and [LinkedIn](https://www.linkedin.com/in/ryan-prentice-45666b57/)
